@@ -1,8 +1,9 @@
-
-
+// Immutable record representing a cereal with nutritional data
 public record Cereal(String name, String mfr, String type, int calories, int protein, int fat, int sodium,
                      double fiber, double carbo, int sugars, int potass, int vitamins, int shelf,
                      double weight, double cups, double rating) {
+
+    // Constructor to initialize from a CSV row
     public Cereal(String[] data) {
         this(data[0], data[1], data[2], Integer.parseInt(data[3]), Integer.parseInt(data[4]),
                 Integer.parseInt(data[5]), Integer.parseInt(data[6]), Double.parseDouble(data[7]),
