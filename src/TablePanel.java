@@ -17,6 +17,7 @@ public class TablePanel extends JPanel {
         tableModel = new DefaultTableModel(columns, 0);
         table = new JTable(tableModel);
 
+        //Sorts the rows in the table
         sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
 
