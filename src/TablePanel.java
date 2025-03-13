@@ -35,4 +35,9 @@ public class TablePanel extends JPanel {
             });
         }
     }
+
+    public JTable getTable(){
+        return table;
+    }
+
 }
