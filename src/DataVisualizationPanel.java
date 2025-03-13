@@ -51,4 +51,6 @@ public class DataVisualizationPanel extends JPanel {
                 false                  // Disable URLs
         );
     }
+
+
 }
