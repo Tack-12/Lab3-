@@ -1,34 +1,46 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-// Main panel combining Table, Stats, Details, and Chart Panels
 public class DataVisualizationPanel extends JPanel {
+    private ChartPanel pieChartPanel;
+    private DefaultPieDataset pieDataset;
+
     public DataVisualizationPanel(List<Cereal> cereals) {
         setLayout(new BorderLayout());
 
         TablePanel tablePanel = new TablePanel(cereals);
         StatsPanel statsPanel = new StatsPanel(cereals);
         DetailsPanel detailsPanel = new DetailsPanel();
-        ChartPanel chartPanel = new ChartPanel(createBarChart(cereals));
+        ChartPanel barChartPanel = new ChartPanel(createBarChart(cereals));
 
-        // Listen for table selection to update details panel
+        // Initialize pie chart with a random cereal
+        pieDataset = new DefaultPieDataset();
+        JFreeChart pieChart = ChartFactory.createPieChart("Cereal Nutrients", pieDataset, true, true, false);
+        pieChartPanel = new ChartPanel(pieChart);
+
+        if (!cereals.isEmpty()) {
+            Cereal defaultCereal = cereals.get(0);
+            updatePieChart(defaultCereal);
+        }
+
+        // Listen for table selection to update details and pie chart
         tablePanel.getTable().getSelectionModel().addListSelectionListener(e -> {
             int selectedRow = tablePanel.getTable().getSelectedRow();
             if (selectedRow != -1) {
-                detailsPanel.updateDetails(cereals.get(selectedRow));
+                Cereal selectedCereal = cereals.get(selectedRow);
+                detailsPanel.updateDetails(selectedCereal);
+                updatePieChart(selectedCereal);
             }
         });
 
         JSplitPane topSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(tablePanel), detailsPanel);
-        JSplitPane bottomSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, statsPanel, chartPanel);
+        JSplitPane bottomSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, statsPanel, pieChartPanel);
         JSplitPane mainSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topSplit, bottomSplit);
 
         add(mainSplit, BorderLayout.CENTER);
@@ -41,16 +53,27 @@ public class DataVisualizationPanel extends JPanel {
             dataset.addValue(cereal.calories(), "Calories", cereal.name());
         }
         return ChartFactory.createBarChart(
-                "Calories Comparison",  // Chart title
-                "Cereal",              // Category axis label
-                "Calories",            // Value axis label
-                dataset,               // Dataset
-                PlotOrientation.VERTICAL,  // Chart orientation
-                true,                  // Include legend
-                true,                  // Enable tooltips
-                false                  // Disable URLs
+                "Calories Comparison",
+                "Cereal",
+                "Calories",
+                dataset,
+                org.jfree.chart.plot.PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
         );
     }
 
+    // Updates the pie chart with the selected cereal's nutrient breakdown
+    private void updatePieChart(Cereal cereal) {
+        pieDataset = new DefaultPieDataset();
+        pieDataset.setValue("Protein", cereal.protein());
+        pieDataset.setValue("Fat", cereal.fat());
+        pieDataset.setValue("Sugars", cereal.sugars());
+        pieDataset.setValue("Fiber", cereal.fiber());
+        pieDataset.setValue("Carbohydrates", cereal.carbo());
 
+        JFreeChart pieChart = ChartFactory.createPieChart("Cereal Nutrients", pieDataset, true, true, false);
+        pieChartPanel.setChart(pieChart);
+    }
 }

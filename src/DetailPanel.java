@@ -8,6 +8,7 @@ class DetailsPanel extends JPanel {
         setLayout(new BorderLayout());
         detailsArea = new JTextArea();
         detailsArea.setEditable(false);
+        detailsArea.setFont(new Font("Serif", Font.BOLD, 14));
         add(new JScrollPane(detailsArea), BorderLayout.CENTER);
     }
 
@@ -15,3 +16,4 @@ class DetailsPanel extends JPanel {
         detailsArea.setText(cereal.toString());
     }
 }
+

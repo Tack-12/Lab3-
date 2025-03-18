@@ -9,7 +9,7 @@ public class CerealVisualization {
                 List<Cereal> cereals = CerealDataProcessor.readCSV("src/cereal.csv");
                 JFrame frame = new JFrame("Cereal Data Visualization");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(800, 600);
+                frame.setSize(900, 900);
                 frame.add(new DataVisualizationPanel(cereals));
                 frame.setVisible(true);
             } catch (IOException e) {
