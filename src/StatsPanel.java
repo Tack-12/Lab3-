@@ -15,9 +15,12 @@ class StatsPanel extends JPanel {
             stats.addValue(cereal.calories());
         }
 
-        add(createStatLabel("Average Calories: " + stats.getMean()));
-        add(createStatLabel("Max Calories: " + stats.getMax()));
-        add(createStatLabel("Min Calories: " + stats.getMin()));
+        add(createStatLabel("Average Calories:"));
+        add(createStatLabel(String.format("%.2f", stats.getMean())));
+        add(createStatLabel("Max Calories:"));
+        add(createStatLabel(String.valueOf(stats.getMax())));
+        add(createStatLabel("Min Calories:"));
+        add(createStatLabel(String.valueOf(stats.getMin())));
     }
 
     private JLabel createStatLabel(String text) {
