@@ -12,7 +12,8 @@ public class CerealVisualization {
                 frame.setSize(900, 900);
                 frame.add(new DataVisualizationPanel(cereals));
                 frame.setVisible(true);
-            } catch (IOException e) {
+                frame.pack()
+;            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
