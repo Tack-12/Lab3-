@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-class DetailsPanel extends JPanel {
+class DetailsPanel extends JPanel implements CerealObserver {
     private JTextArea detailsArea;
 
     public DetailsPanel() {
@@ -16,7 +16,8 @@ class DetailsPanel extends JPanel {
         add(new JScrollPane(detailsArea), BorderLayout.CENTER);
     }
 
-    public void updateDetails(Cereal cereal) {
+    @Override
+    public void update(Cereal cereal) {
         detailsArea.setText(formatCerealDetails(cereal));
     }
 

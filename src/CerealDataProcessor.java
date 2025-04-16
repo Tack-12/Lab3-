@@ -10,7 +10,7 @@ public class CerealDataProcessor {
             br.readLine(); // Skip header
             String line;
             while ((line = br.readLine()) != null) {
-                cereals.add(new Cereal(line.split(","))); // Create Cereal object
+                cereals.add(CerealFactory.createCereal(line.split(",")));
             }
         }
         return cereals;

@@ -42,7 +42,7 @@ public class DataVisualizationPanel extends JPanel {
             int selectedRow = tablePanel.getTable().getSelectedRow();
             if (selectedRow != -1) {
                 Cereal selectedCereal = cereals.get(selectedRow);
-                detailsPanel.updateDetails(selectedCereal);
+                detailsPanel.update(selectedCereal);
                 updatePieChart(selectedCereal);
             }
         });
@@ -120,5 +120,8 @@ public class DataVisualizationPanel extends JPanel {
         tablePanel.updateTable(filtered);
         statsPanel.updateStats(filtered);
         barChartPanel.setChart(createBarChart(filtered));
+        tablePanel.addObserver(detailsPanel);
+        tablePanel.addObserver(statsPanel);
+
     }
 }

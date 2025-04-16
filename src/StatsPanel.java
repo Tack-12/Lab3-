@@ -1,10 +1,9 @@
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-class StatsPanel extends JPanel {
+class StatsPanel extends JPanel implements CerealObserver {
     private JLabel avgCaloriesLabel;
     private JLabel maxCaloriesLabel;
     private JLabel minCaloriesLabel;
@@ -23,7 +22,7 @@ class StatsPanel extends JPanel {
         updateStats(cereals);
     }
 
-    public void updateStats(List<Cereal> cereals) {
+    void updateStats(List<Cereal> cereals) {
         DescriptiveStatistics stats = new DescriptiveStatistics();
         for (Cereal cereal : cereals) {
             stats.addValue(cereal.calories());
@@ -37,5 +36,12 @@ class StatsPanel extends JPanel {
         JLabel label = new JLabel(text);
         label.setFont(new Font("SansSerif", Font.BOLD, 16));
         return label;
+    }
+
+    @Override
+    public void update(Cereal cereal) {
+        avgCaloriesLabel.setText("Calories: " + cereal.calories());
+        maxCaloriesLabel.setText("Protein: " + cereal.protein());
+        minCaloriesLabel.setText("Sugars: " + cereal.sugars());
     }
 }
