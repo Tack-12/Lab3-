@@ -1,0 +1,60 @@
+## Overview
+
+This project was originally built to visualize cereal nutritional data using Java Swing components. To improve the modularity, scalability, and maintainability of the codebase, **two object-oriented design patterns** were added:
+
+- **Factory Pattern**
+- **Observer Pattern**
+
+---
+
+## Implemented Design Patterns
+
+### 1. ✅ Factory Pattern
+
+**Purpose:**  
+Encapsulates the creation logic of `Cereal` objects to follow the *Single Responsibility Principle* and support future extensibility.
+
+**What Changed:**
+- A new `CerealFactory` class was introduced.
+- `CerealDataProcessor` was refactored to use `CerealFactory.createCereal(...)` instead of directly calling `new Cereal(...)`.
+
+**Benefits:**
+- Decouples object creation from usage logic.
+- Makes it easier to switch to a subclass or alternative cereal initialization method in the future.
+- Supports unit testing and mock generation.
+
+---
+
+### 2. ✅ Observer Pattern
+
+**Purpose:**  
+Implements a publish-subscribe mechanism where multiple UI components can react to changes in selected cereal data without being tightly coupled.
+
+**What Changed:**
+- A new `CerealObserver` interface was added.
+- `TablePanel` was made *observable* and now maintains a list of observers.
+- `DetailsPanel` and `StatsPanel` were refactored to implement the `CerealObserver` interface.
+- `DataVisualizationPanel` connects the observers to the `TablePanel`.
+
+**Benefits:**
+- Follows the *Open/Closed Principle*: new panels can be added without modifying `TablePanel`.
+- Promotes separation of concerns between the table view and the stats/details panels.
+- Improves reusability and testability of components.
+
+---
+
+## Result
+
+By incorporating these two design patterns:
+- The code is now **more modular** and **easier to extend**.
+- GUI components are **loosely coupled**, promoting reuse and better collaboration between modules.
+- Maintenance and updates (e.g., adding new observers or alternate cereal creators) require **minimal code changes**.
+
+---
+
+## How to Run
+
+1. Open the project in IntelliJ .
+2. Ensure `JDK 17` or higher is selected and the Project Structure is X-experimental.
+3. Run `CerealVisualization.java` or `CerealApp.java`.
+4. Use the GUI to filter and inspect cereal data.
