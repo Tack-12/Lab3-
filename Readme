@@ -9,7 +9,7 @@ This project was originally built to visualize cereal nutritional data using Jav
 
 ## Implemented Design Patterns
 
-### 1. ✅ Factory Pattern
+### 1. Factory Pattern
 
 **Purpose:**  
 Encapsulates the creation logic of `Cereal` objects to follow the *Single Responsibility Principle* and support future extensibility.
@@ -25,7 +25,7 @@ Encapsulates the creation logic of `Cereal` objects to follow the *Single Respon
 
 ---
 
-### 2. ✅ Observer Pattern
+### 2.  Observer Pattern
 
 **Purpose:**  
 Implements a publish-subscribe mechanism where multiple UI components can react to changes in selected cereal data without being tightly coupled.
